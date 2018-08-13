@@ -11,7 +11,7 @@ export default class Header extends React.Component{
 
     componentWillMount(){
         this.setState({
-            userName:'河畔一角'
+            userName:'真仙忆梦'
         })
         setInterval(() => {
             let sysTime = Util.formateDate(new Date().getTime())
