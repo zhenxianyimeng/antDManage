@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card, Button, Radio, notification} from 'antd'
 import './ui.less'
-export default class Buttons extends React.Component{
+export default class Notice extends React.Component{
 
 	openNotification = (type, direction)=>{
 		if(direction){
