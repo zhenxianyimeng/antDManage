@@ -75,7 +75,7 @@ export default class Tabss extends React.Component{
 
 	render(){
 		const { TabPane } = Tabs;
-		console.log(this.state);
+		// console.log(this.state);
 
 		return(
 			<div>
