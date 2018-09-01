@@ -21,6 +21,13 @@ class FormRegister extends React.Component {
 		reader.readAsDataURL(img);
 	}
 
+	handleSumbit = ()=>{
+		let userInfo = this.props.form.getFieldsValue();
+		console.log(JSON.stringify(userInfo));
+		message.success(`${userInfo.userName}恭喜您通过${JSON.stringify(userInfo)}`)
+
+	}
+
 	handleChange = (info) => {
 		if (info.file.status === 'uploading') {
 			this.setState({ loading: true });
@@ -49,6 +56,15 @@ class FormRegister extends React.Component {
 			}
 		}
 
+		const offsetLayout = {
+			wrapperCol:{
+				xs:24,
+				sm:{
+					span:12, offset:4
+				}
+			}
+		}
+
 		return (
 			<div>
 				<Card title="注册表单">
@@ -70,7 +86,7 @@ class FormRegister extends React.Component {
 							{
 								getFieldDecorator('userPwd', {
 									initialValue: '',
-								})(<Input placeholder="请输入密码"></Input>)
+								})(<Input type="password" placeholder="请输入密码"></Input>)
 							}
 						</FormItem>
 						<FormItem label="性别" {...formItemLayout}>
@@ -189,6 +205,26 @@ class FormRegister extends React.Component {
 								)
 							}
 						</FormItem>
+						<FormItem {...offsetLayout}>
+							{
+								getFieldDecorator('userImg')(
+									<Checkbox>我已阅读<a href="#">协议</a></Checkbox>
+								)
+							}
+						</FormItem>
+						<FormItem {...offsetLayout}>
+							{
+								<Button type="primary" onClick={this.handleSumbit}>注册</Button>
+							}
+						</FormItem>
+
+						{/*<FormItem  {...offsetLayout}>*/}
+							{/*{*/}
+								{/*getFieldDecorator('userImg')(*/}
+									{/*<Checkbox>我已阅读<a href="#">协议</a><Checkbox/>*/}
+								{/*)*/}
+							{/*}*/}
+						{/*</FormItem>*/}
 
 					</Form>
 				</Card>
