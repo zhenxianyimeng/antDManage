@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card, Table} from 'antd';
+import axios from './../../axios/index';
 
 export default class BasicTable extends React.Component{
 
@@ -44,6 +45,38 @@ export default class BasicTable extends React.Component{
 		this.setState({
 			dataSource
 		})
+
+		this.request();
+	}
+
+	// //动态mock数据
+	request = () =>{
+
+		axios.ajax({
+			url: '/table/list',
+			data:{
+				params:{
+					page:1,
+				},
+				isShowLoading: true,
+			}
+		}).then((res) => {
+			if(res.code == 0){
+				this.setState({
+					dataSource2: res.result,
+				})
+			}
+		})
+
+		// let baseUrl = 'https://www.easy-mock.com/mock/5b88888389484103289808e1/api'
+		// axios.get(baseUrl + '/table/list').then(res=>{
+		// 	if(res.status == '200'){
+		// 		this.setState({
+		// 			dataSource2:res.data.result
+		// 		})
+		// 	}
+		// 	// console.log(JSON.stringify(res));
+		// })
 	}
 
 	render(){
