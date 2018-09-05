@@ -16,6 +16,45 @@ export default class Order extends React.Component{
 
 	params = {
 		page:1,
+	};
+
+	// 订单结束确认
+	handleConfirm = ()=>{
+		let item = this.state.selectedItem;
+		if (!item) {
+			Modal.info({
+				title: '信息',
+				content: '请选择一条订单进行结束'
+			})
+			return;
+		}
+		axios.ajax({
+			url:'/order/ebike_info',
+			data:{
+				params:{
+					orderId: item.id
+				}
+			}
+		}).then((res)=>{
+			if(res.code ==0 ){
+				this.setState({
+					orderInfo:res.result,
+					orderConfirmVisble: true
+				})
+			}
+		})
+	};
+
+	openOrderDetail = ()=> {
+		let item = this.state.selectedItem;
+		if (!item) {
+			Modal.info({
+				title: '信息',
+				content: '请先选择一条订单'
+			})
+			return;
+		}
+		window.open('/#/common/order/detail/'+item.id, '_blank')
 	}
 
 	onRowClick = (record, index) => {
@@ -109,8 +148,8 @@ export default class Order extends React.Component{
 					<FilterForm/>
 				</Card>
 				<Card style={{marginTop:10}}>
-					<Button type="primary">订单详情</Button>
-					<Button type="primary">结束订单</Button>
+					<Button type="primary" onClick={this.openOrderDetail}>订单详情</Button>
+					<Button type="primary" style={{marginLeft:10}} onClick={this.handleConfirm}>结束订单</Button>
 				</Card>
 				<div className="content-wrap">
 					<Table
