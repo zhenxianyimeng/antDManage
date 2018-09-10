@@ -2,8 +2,10 @@ import React from 'react';
 import {Card, Button, Table, Form, Select, Modal, message, DatePicker} from 'antd';
 import axios from '../../axios';
 import Utils from '../../utils/utils';
+import BaseForm from '../../components/BaseForm'
 const FormItem = Form.Item;
 const Option = Select.Option;
+
 export default class Order extends React.Component{
 
 	state = {
@@ -17,6 +19,42 @@ export default class Order extends React.Component{
 	params = {
 		page:1,
 	};
+
+	formList = [
+		{
+			type:'SELECT',
+			label:'城市',
+			field:'city',
+			placeholder:'全部',
+			initialValue: '1',
+			width: 100,
+			list: [{id:'0', name:'全部'},{id:'1', name:'北京'},{id:'2', name:'天津'},{id:'3', name:'上海'},]
+		},
+		// {
+		// 	type:'INPUT',
+		// 	label:'模式',
+		// 	field:'mode',
+		// 	placeholder:'请输入模式',
+		// 	width: 100,
+		// },
+		{
+			type:'时间查询',
+		},
+		{
+			type:'SELECT',
+			label:'订单状态',
+			field:'order_status',
+			placeholder:'全部',
+			initialValue: '1',
+			width: 100,
+			list: [{id:'0', name:'全部'},{id:'1', name:'进行中'},{id:'2', name:'结束行程'},]
+		}
+	]
+
+	handleFilter = (params)=>{
+		this.params = params;
+		this.requestList();
+	}
 
 	// 订单结束确认
 	handleConfirm = ()=>{
@@ -71,7 +109,7 @@ export default class Order extends React.Component{
 			url:'/order/list',
 			data:{
 				params:{
-					page:this.params.page,
+					page:this.params,
 				}
 			}
 		}).then(res => {
@@ -145,7 +183,7 @@ export default class Order extends React.Component{
 		return (
 			<div>
 				<Card>
-					<FilterForm/>
+					<BaseForm formList={this.formList} filterSubmit={this.handleFilter}/>
 				</Card>
 				<Card style={{marginTop:10}}>
 					<Button type="primary" onClick={this.openOrderDetail}>订单详情</Button>
