@@ -105,25 +105,26 @@ export default class Order extends React.Component{
 
 	requestList = () => {
 		const _this = this;
-		axios.ajax({
-			url:'/order/list',
-			data:{
-				params:{
-					page:this.params,
-				}
-			}
-		}).then(res => {
-			this.setState({
-				list: res.result.item_list.map((item, index) => {
-					item.key = index;
-					return item;
-				}),
-				pagination: Utils.pagination(res, (current) => {
-					_this.params.page = current;
-					_this.requestList();
-				})
-			})
-		})
+		axios.requestList(_this, '/order/list', _this.params )
+		// axios.ajax({
+		// 	url:'/order/list',
+		// 	data:{
+		// 		params:{
+		// 			page:this.params,
+		// 		}
+		// 	}
+		// }).then(res => {
+		// 	this.setState({
+		// 		list: res.result.item_list.map((item, index) => {
+		// 			item.key = index;
+		// 			return item;
+		// 		}),
+		// 		pagination: Utils.pagination(res, (current) => {
+		// 			_this.params.page = current;
+		// 			_this.requestList();
+		// 		})
+		// 	})
+		// })
 	}
 
 	render(){
