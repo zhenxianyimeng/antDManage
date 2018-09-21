@@ -98,6 +98,29 @@ class FilterForm extends React.Component{
 						}
 					</FormItem>;
 					formItemList.push(Date)
+				} else if(item.type == '城市'){
+					const city = <FormItem label="城市" key={field}>
+						{
+							getFieldDecorator('city',{
+								initialValue:'0'
+							})(
+								<Select
+									style={{width: 80}}
+									placeholder={placeHolder}
+									// width={80}
+								>
+									{Utils.getOptionList([
+										{id:'0',name:'全部'},
+										{id:'1',name:'北京'},
+										{id:'2',name:'上海'},
+										{id:'3',name:'天津'},
+										{id:'4',name:'杭州'},
+									])}
+								</Select>
+							)
+						}
+					</FormItem>;
+					formItemList.push(city);
 				}
 
 			})
