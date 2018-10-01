@@ -10,8 +10,8 @@ import registerServiceWorker from './registerServiceWorker';
 const store = configureStore();
 
 ReactDOM.render(
-	<Provider >
-		<Router store={store}/>
+	<Provider store={store}>
+		<Router />
 	</Provider>
 	, document.getElementById('root'));
 
